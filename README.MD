@@ -38,3 +38,7 @@ Otherwise the site is viewable publically
 
 input validation:
 i have added input validation to the login, addbook as well as search books.
+
+the sanitizer runs a chain of input validation to make sure inputs can be trusted.
+i have already validated against emails so i havent used sanitize on it.
+i also didnt use it on the password as it may change what the user inputs before it's encrypted, meaning the user could lose their account for no reason.

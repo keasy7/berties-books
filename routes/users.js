@@ -37,15 +37,15 @@ router.post('/registered',
         // Store hashed password in your database.
         let sqlquery = "INSERT INTO users (first, last, email, username, password) VALUES (?,?,?,?,?)"
         // execute sql query
-        let newrecord = [req.body.first, req.body.last, req.body.email, req.body.username, hashedPassword] //creates a new item
+        let newrecord = [req.sanitize(req.body.first), req.sanitize(req.body.last), req.body.email, req.sanitize(req.body.username), hashedPassword] //creates a new item
         db.query(sqlquery, newrecord, (err, result) => {
             if (err) {
                 next(err)
             } else {
-                result = 'Hello '+ req.body.first + ' '+ req.body.last +' you are now registered!  We will send an email to you at ' + req.body.email
+                result = 'Hello '+ req.sanitize(req.body.first) + ' '+ req.sanitize(req.body.last) +' you are now registered!  We will send an email to you at ' + req.body.email
                 //result += 'Your password is: '+ req.body.password +' and your hashed password is: '+ hashedPassword. Commented for security
                 res.send(result)
-                //res.send(' Hello '+ req.body.first + ' '+ req.body.last +' you are now registered!  We will send an email to you at ' + req.body.email);   
+                //res.send(' Hello '+ req.sanitize(req.body.first) + ' '+ req.sanitize(req.body.last) +' you are now registered!  We will send an email to you at ' + req.body.email);   
             }
         });
     });
@@ -82,7 +82,7 @@ router.get('/login', function (req, res, next) {
 
 router.post('/loggedIn', function (req, res, next) {
     let sqlquery = "SELECT * FROM users WHERE username = ?"
-    const username = req.body.username
+    const username = req.sanitize(req.body.username)
     const plainPassword = req.body.password
 
     db.query(sqlquery, [username], (err, results) => {

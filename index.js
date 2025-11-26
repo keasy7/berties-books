@@ -8,6 +8,7 @@ var session = require('express-session')
 // Create the express application object
 const app = express()
 const port = 8000
+const expressSanitizer = require('express-sanitizer');
 
 // Tell Express that we want to use EJS as the templating engine
 app.set('view engine', 'ejs')
@@ -17,6 +18,9 @@ app.use(express.urlencoded({ extended: true }))
 
 // Set up public folder (for css and static js)
 app.use(express.static(path.join(__dirname, 'public')))
+
+// Set up express-sanitizer
+app.use(expressSanitizer());
 
 // Set up the session middleware
 app.use(session({
