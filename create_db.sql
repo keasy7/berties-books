@@ -1,10 +1,10 @@
-# Create database script for Berties books
+-- Create database script for Berties books
 
-# Create the database
+-- Create the database
 CREATE DATABASE IF NOT EXISTS berties_books;
 USE berties_books;
 
-# Create the tables
+-- Create the tables
 CREATE TABLE IF NOT EXISTS books (
     id     INT AUTO_INCREMENT,
     name   VARCHAR(50),
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS users (
     last     VARCHAR(50),
     email    VARCHAR(100),
     username VARCHAR(50),
-    password VARCHAR(256)
+    password VARCHAR(256),
     PRIMARY KEY(id));
 
 CREATE TABLE IF NOT EXISTS login_attempts (
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS login_attempts (
     attempt_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-# Create the application user
+-- Create the application user
 CREATE USER IF NOT EXISTS 'berties_books_app'@'localhost' IDENTIFIED BY 'qwertyuiop'; 
-GRANT ALL PRIVILEGES ON berties_books.* TO ' berties_books_app'@'localhost';
+GRANT ALL PRIVILEGES ON berties_books.* TO 'berties_books_app'@'localhost';
 
